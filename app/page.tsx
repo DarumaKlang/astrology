@@ -1,6 +1,5 @@
 'use client';
 
-import Image from "next/image";
 import Link from 'next/link';
 
 export default function Home() {
@@ -8,17 +7,7 @@ export default function Home() {
 
       <main className="relative min-h-screen">
             {/* Background Image with Overlay */}
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/background-vessuyan.png"
-                    alt="Background Image"
-                    fill
-                    className="object-cover"
-                    quality={100}
-                />
-                <div className="absolute inset-0 bg-primary-purple opacity-70"></div>
-            </div>
-
+            
             <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image

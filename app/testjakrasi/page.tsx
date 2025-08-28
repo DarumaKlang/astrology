@@ -5,7 +5,7 @@ import { useState } from "react";
 import { calculateChart } from "@/lib/astrology";   // ✅ ใช้ calculateChart
 import ChartView from "@/components/Chart";
 
-export default function Home() {
+export default function Astrology() {
     // ตัวอย่างเรียกใช้งาน
     const [chart, setChart] = useState<any>(null);
 

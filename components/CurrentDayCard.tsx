@@ -53,12 +53,12 @@ const CurrentDayCard: React.FC = () => {
                 </p>
                 <div className="bg-white/20 p-4 rounded-md mt-4 mb-4">
                     <p className="text-xl font-bold">
-                        ธาตุประจำวัน: <span className="text-secondary-gold text-2xl">{currentDayData.element}</span>
+                        ธาตุประจำวัน: <span className="text-secondary-gold text-xl">{currentDayData.element}</span>
                     </p>
                 </div>
                 <div className="bg-white/20 p-4 rounded-md mb-4">
                     <p className="text-xl font-bold">
-                        กำลังของดาว: <span className="text-secondary-gold text-2xl">{power}</span>
+                        กำลังของดาว: <span className="text-secondary-gold text-xl">{power}</span>
                     </p>
                 </div>
                 <div className="bg-white/20 p-4 rounded-md mb-4">

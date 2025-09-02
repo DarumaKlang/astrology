@@ -63,13 +63,13 @@ const CurrentDayCard: React.FC = () => {
                 </div>
                 <div className="bg-white/20 p-4 rounded-md mb-4">
                     <p className="text-xl font-bold">
-                        ทิศ: <span className="text-secondary-gold text-2xl">{currentDayData.direction}</span>
+                        ทิศ: <span className="text-secondary-gold text-xl">{currentDayData.direction}</span>
                     </p>
                 </div>
                 {/* เพิ่มส่วนแสดงผลชื่อคาถา */}
                 <div className="bg-white/20 p-4 rounded-md mb-4">
                     <p className="text-xl font-bold">
-                        คาถา: <span className="text-secondary-gold text-2xl">{currentDayData.mantraName}</span>
+                        คาถา: <span className="text-secondary-gold text-xl">{currentDayData.mantraName}</span>
                     </p>
                     <p className="text-md font-medium text-gray-300">
                         ({currentDayData.mantra})

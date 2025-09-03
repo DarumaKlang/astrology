@@ -4,6 +4,7 @@ import CurrentDayCard from '@/components/CurrentDayCard';
 import DynamicHoroscope from '@/components/DynamicHoroscope';
 import PlanetaryPositions from '@/components/PlanetaryPositions';
 import AstroDataDisplay from '@/components/AstroDataDisplay';
+import CurrentZodiactCard from '@/components/CurrentZodiactCard';
 
 export default function Home() {
     return (
@@ -15,6 +16,7 @@ export default function Home() {
 
                 <YamaAthaganClock />
                 <CurrentDayCard />
+                <CurrentZodiactCard />
 
                 <AstroDataDisplay />
             </div>

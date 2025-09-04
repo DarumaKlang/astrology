@@ -122,7 +122,7 @@ const YamaAthaganClock: React.FC = () => {
     return (
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-xl border border-secondary-gold/30 text-white flex flex-col items-center justify-center max-w-sm mx-auto my-8">
             <div className="text-center">
-                <h2 className="text-2xl font-bold text-secondary-gold mb-2 drop-shadow-lg">
+                <h2 className="text-3xl font-bold mb-2 drop-shadow-lg text-amber-400">
                     นาฬิกายามอัฐกาล
                 </h2>
                 <p className="text-6xl font-bold mb-4 drop-shadow-lg text-white">

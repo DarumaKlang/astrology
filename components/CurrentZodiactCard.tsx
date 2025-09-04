@@ -13,7 +13,7 @@ const CurrentZodiactCard: React.FC = () => {
 
     return (
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-xl border border-secondary-gold/30 text-white flex flex-col items-center justify-center max-w-sm mx-auto my-8">
-            <h2 className="text-2xl font-bold text-secondary-gold mb-4 text-left">
+            <h2 className="text-3xl font-bold mb-2 drop-shadow-lg text-amber-400">
                 ข้อมูลประจำราศี
             </h2>
             <div className="flex flex-col space-y-2 w-full text-left">

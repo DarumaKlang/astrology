@@ -1,6 +1,41 @@
-import { AstrologicalSign } from '@/types/astrology';
+'use client';
 
-export const astrologicalRules: AstrologicalSign[] = [
+import { useState } from 'react';
+
+/**
+ * ฟังก์ชันสำหรับแปลงเลขอะราบิกเป็นเลขไทย
+ * @param num - ตัวเลขที่ต้องการแปลง
+ * @returns - ตัวเลขในรูปแบบเลขไทย
+ */
+const toThaiNumerals = (num: number): string => {
+    const thaiNumerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"];
+    return num.toString().split('').map(digit => thaiNumerals[parseInt(digit)]).join('');
+};
+
+/**
+ * Interface สำหรับข้อมูลกฎเกณฑ์ทางโหราศาสตร์.
+ * ช่วงเวลา (timeRange) คำนวณเป็นนาทีเพื่อความง่ายในการเปรียบเทียบ
+ */
+interface Rule {
+    month: [number, number]; // [เดือนเริ่มต้น, เดือนสิ้นสุด]
+    dateRange: [number, number]; // [วันที่เริ่มต้น, วันที่สิ้นสุด]
+    timeRange: [number, number]; // [นาทีเริ่มต้น, นาทีสิ้นสุด]
+}
+
+/**
+ * Interface สำหรับข้อมูลราศี รวมถึงชื่อไทยและกฎเกณฑ์
+ */
+interface AstrologicalSign {
+    nameThai: string;
+    sign: string;
+    rules: Rule[];
+}
+
+/**
+ * ข้อมูลกฎเกณฑ์ทางโหราศาสตร์สำหรับคำนวณลัคนา (Ascendant)
+ * อิงตามวันเกิดและเวลาเกิด.
+ */
+const astrologicalRules: AstrologicalSign[] = [
     {
         nameThai: 'ลัคนาราศีเมษ',
         sign: 'Aries',
@@ -230,3 +265,119 @@ export const astrologicalRules: AstrologicalSign[] = [
         ],
     },
 ];
+
+export default function App() {
+    const [birthDate, setBirthDate] = useState<string>('');
+    const [birthTime, setBirthTime] = useState<string>('');
+    const [lakhanaResult, setLakhanaResult] = useState<string>('');
+
+    /**
+     * คำนวณลัคนา (ราศี Ascendant) จากวันเกิดและเวลาที่ผู้ใช้กรอก
+     */
+    const calculateLakhana = () => {
+        try {
+            if (!birthDate || !birthTime) {
+                setLakhanaResult('กรุณาใส่ข้อมูลให้ครบถ้วน');
+                return;
+            }
+
+            const birthDateTime = new Date(`${birthDate}T${birthTime}:00`);
+            const month = birthDateTime.getMonth() + 1; // getMonth() returns 0-11
+            const day = birthDateTime.getDate();
+            const totalMinutes = birthDateTime.getHours() * 60 + birthDateTime.getMinutes();
+
+            let foundSign: AstrologicalSign | undefined;
+
+            // วนลูปตามราศีและกฎเกณฑ์เพื่อหาคู่ที่ตรงกัน
+            for (const signData of astrologicalRules) {
+                for (const rule of signData.rules) {
+                    const [startMonth, endMonth] = rule.month;
+                    const [startDate, endDate] = rule.dateRange;
+                    const [startTime, endTime] = rule.timeRange;
+
+                    // จัดการช่วงวันที่ที่คร่อมเดือน (เช่น ธ.ค. ไป ม.ค.)
+                    const isDateMatch = (endMonth < startMonth)
+                        ? (month === startMonth && day >= startDate) || (month === endMonth && day <= endDate)
+                        : (month >= startMonth && month <= endMonth) && (day >= startDate && day <= endDate);
+
+                    if (isDateMatch && totalMinutes >= startTime && totalMinutes <= endTime) {
+                        foundSign = signData;
+                        break;
+                    }
+                }
+                if (foundSign) {
+                    break;
+                }
+            }
+
+            if (foundSign) {
+                setLakhanaResult(`ลัคนาของคุณคือ: ${foundSign.nameThai} (${foundSign.sign})`);
+            } else {
+                setLakhanaResult('ไม่พบข้อมูลลัคนา กรุณาตรวจสอบข้อมูลอีกครั้ง');
+            }
+        } catch (error) {
+            console.error(error);
+            setLakhanaResult('เกิดข้อผิดพลาดในการคำนวณ');
+        }
+    };
+
+    return (
+        <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-xl border border-secondary-gold/30 text-white flex flex-col items-center justify-center max-w-sm mx-auto my-8">
+            <h1 className="text-3xl font-bold mb-2 drop-shadow-lg text-amber-400">
+                เครื่องมือคำนวณลัคนาราศี
+            </h1>
+            <p className="text-center text-md mb-6 text-gray-200">
+                โปรดกรอกข้อมูลวัน/เดือน/ปีเกิด และเวลาเกิดของคุณ.
+            </p>
+
+            <div className="flex flex-col gap-4 mb-6 w-full">
+                <div className="flex flex-col">
+                    <label htmlFor="birthDate" className="mb-2 text-sm font-medium text-gray-200">
+                        วันเกิด:
+                    </label>
+                    <input
+                        type="date"
+                        id="birthDate"
+                        value={birthDate}
+                        onChange={(e) => setBirthDate(e.target.value)}
+                        className="p-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 bg-gray-800 text-white"
+                    />
+                </div>
+
+                <div className="flex flex-col">
+                    <label htmlFor="birthTime" className="mb-2 text-sm font-medium text-gray-200">
+                        เวลาเกิด:
+                    </label>
+                    <input
+                        type="time"
+                        id="birthTime"
+                        value={birthTime}
+                        onChange={(e) => setBirthTime(e.target.value)}
+                        className="p-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 bg-gray-800 text-white"
+                    />
+                </div>
+            </div>
+
+            <div className="flex justify-center w-full mb-6">
+                <button
+                    onClick={calculateLakhana}
+                    className="w-full px-6 py-3 text-lg font-bold text-gray-900 bg-amber-400 rounded-lg shadow-lg hover:bg-amber-500 transition-all duration-300 transform hover:scale-105"
+                >
+                    คำนวณลัคนา
+                </button>
+            </div>
+
+            {lakhanaResult && (
+                <div className="mt-4 p-4 w-full text-center bg-white/20 rounded-md">
+                    <h2 className="text-xl font-bold text-amber-400 drop-shadow-lg">
+                        ผลลัพธ์:
+                    </h2>
+                    <p className="mt-2 text-2xl font-bold">
+                        {lakhanaResult}
+                    </p>
+                </div>
+            )}
+        </div>
+
+    );
+}

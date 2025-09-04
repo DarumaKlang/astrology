@@ -1,293 +1,39 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { astrologicalRules } from '@/data/astrologicalRules';
+import { AstrologicalSign } from '@/types/astrology';
 
-// Interfaces for Astrological Signs and Rules
-export interface AstrologicalSign {
-    nameThai: string;
-    sign: string;
-    rules: AstrologicalRule[];
-}
-
-export interface AstrologicalRule {
-    month: [number, number];
-    dateRange: [number, number];
-    timeRange: [number, number];
-}
-
-// Data for Astrological Rules (Thai Astrology)
-export const astrologicalRules: AstrologicalSign[] = [
-    {
-        nameThai: 'ลัคนาราศีเมษ',
-        sign: 'เมษ',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [781, 900] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [661, 780] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [541, 660] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [421, 540] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [301, 420] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [181, 300] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [61, 180] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [1381, 1440] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [0, 60] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [1261, 1380] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [1141, 1260] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [1021, 1140] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [901, 1020] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [781, 900] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีพฤษภ',
-        sign: 'พฤษภ',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [901, 1020] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [781, 900] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [661, 780] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [541, 660] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [421, 540] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [301, 420] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [181, 300] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [61, 180] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [1381, 1440] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [0, 60] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [1261, 1380] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [1141, 1260] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [1021, 1140] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [901, 1020] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีเมถุน',
-        sign: 'เมถุน',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [1021, 1140] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [901, 1020] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [781, 900] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [661, 780] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [541, 660] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [421, 540] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [301, 420] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [181, 300] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [61, 180] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [1381, 1440] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [0, 60] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [1261, 1380] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [1141, 1260] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [1021, 1140] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีกรกฎ',
-        sign: 'กรกฎ',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [1141, 1260] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [1021, 1140] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [901, 1020] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [781, 900] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [661, 780] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [541, 660] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [421, 540] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [301, 420] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [181, 300] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [61, 180] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [1381, 1440] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [0, 60] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [1261, 1380] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [1141, 1260] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีสิงห์',
-        sign: 'สิงห์',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [1261, 1380] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [1141, 1260] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [1021, 1140] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [901, 1020] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [781, 900] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [661, 780] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [541, 660] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [421, 540] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [301, 420] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [181, 300] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [61, 180] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [1381, 1440] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [0, 60] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [1261, 1380] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีกันย์',
-        sign: 'กันย์',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [1381, 1440] },
-            { month: [1, 2], dateRange: [15, 12], timeRange: [0, 60] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [1261, 1380] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [1141, 1260] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [1021, 1140] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [901, 1020] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [781, 900] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [661, 780] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [541, 660] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [421, 540] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [301, 420] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [181, 300] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [61, 180] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [1381, 1440] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [0, 60] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีตุลย์',
-        sign: 'ตุลย์',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [61, 180] },
-            { month: [1, 2], dateRange: [15, 12], timeRange: [1381, 1440] },
-            { month: [1, 2], dateRange: [15, 12], timeRange: [0, 60] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [181, 300] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [1261, 1380] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [1141, 1260] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [1021, 1140] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [901, 1020] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [781, 900] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [661, 780] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [541, 660] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [421, 540] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [301, 420] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [181, 300] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีพิจิก',
-        sign: 'พิจิก',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [181, 300] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [61, 180] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [1381, 1440] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [0, 60] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [1261, 1380] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [1141, 1260] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [1021, 1140] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [901, 1020] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [781, 900] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [661, 780] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [541, 660] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [421, 540] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [301, 420] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [181, 300] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีธนู',
-        sign: 'ธนู',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [301, 420] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [181, 300] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [61, 180] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [1381, 1440] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [0, 60] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [1261, 1380] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [1141, 1260] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [1021, 1140] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [901, 1020] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [781, 900] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [661, 780] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [541, 660] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [421, 540] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [301, 420] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีมังกร',
-        sign: 'มังกร',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [421, 540] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [301, 420] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [181, 300] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [61, 180] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [1381, 1440] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [0, 60] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [1261, 1380] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [1141, 1260] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [1021, 1140] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [901, 1020] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [781, 900] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [661, 780] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [541, 660] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [421, 540] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีกุมภ์',
-        sign: 'กุมภ์',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [541, 660] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [421, 540] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [301, 420] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [181, 300] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [61, 180] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [1381, 1440] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [0, 60] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [1261, 1380] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [1141, 1260] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [1021, 1140] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [901, 1020] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [781, 900] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [661, 780] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [541, 660] },
-        ],
-    },
-    {
-        nameThai: 'ลัคนาราศีมีน',
-        sign: 'มีน',
-        rules: [
-            { month: [1, 2], dateRange: [15, 12], timeRange: [661, 780] },
-            { month: [2, 3], dateRange: [13, 13], timeRange: [541, 660] },
-            { month: [3, 4], dateRange: [14, 12], timeRange: [421, 540] },
-            { month: [4, 5], dateRange: [13, 13], timeRange: [301, 420] },
-            { month: [5, 6], dateRange: [14, 13], timeRange: [181, 300] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [61, 180] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [1381, 1440] },
-            { month: [6, 7], dateRange: [14, 14], timeRange: [0, 60] },
-            { month: [7, 8], dateRange: [15, 16], timeRange: [1261, 1380] },
-            { month: [8, 9], dateRange: [17, 16], timeRange: [1141, 1260] },
-            { month: [9, 10], dateRange: [17, 16], timeRange: [1021, 1140] },
-            { month: [10, 11], dateRange: [17, 15], timeRange: [901, 1020] },
-            { month: [11, 12], dateRange: [16, 15], timeRange: [781, 900] },
-            { month: [12, 1], dateRange: [16, 14], timeRange: [661, 780] },
-        ],
-    },
-];
-
-const BlankCard: React.FC = () => {
+const LukkanaChecker: React.FC = () => {
     const [birthDate, setBirthDate] = useState<string>('');
     const [birthTime, setBirthTime] = useState<string>('');
     const [lukkanaSign, setLukkanaSign] = useState<string>('กรุณากรอกข้อมูล...');
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
+    // เพิ่มฟังก์ชันนี้สำหรับจัดรูปแบบวันที่
+    const formatDate = (dateString: string): string => {
+        if (!dateString) return '';
+        const [year, month, day] = dateString.split('-');
+        return `${day}/${month}/${year}`;
+    };
+
     const calculateLukkana = (date: string, time: string): string => {
         if (!date || !time) {
-            return 'กรุณากรอกข้อมูลวันและเวลาเกิด';
+            return 'ไม่พบข้อมูลลัคนา';
         }
 
-        const birthDateTime = new Date(`${date}T${time}`);
-        const birthMonth = birthDateTime.getMonth() + 1; // getMonth() is 0-indexed
-        const birthDay = birthDateTime.getDate();
-        const birthHour = birthDateTime.getHours();
-        const birthMinute = birthDateTime.getMinutes();
-
-        // Convert birth time to minutes for easier comparison
-        const birthTimeInMinutes = birthHour * 60 + birthMinute;
+        const [year, month, day] = date.split('-').map(Number);
+        const [hours, minutes] = time.split(':').map(Number);
+        const birthTimeInMinutes = hours * 60 + minutes;
 
         for (const sign of astrologicalRules) {
             for (const rule of sign.rules) {
-                const monthMatch = (birthMonth >= rule.month[0] && birthMonth <= rule.month[1]) ||
-                                  (rule.month[0] > rule.month[1] && (birthMonth >= rule.month[0] || birthMonth <= rule.month[1]));
-                
-                const dateMatch = (birthDay >= rule.dateRange[0] && birthDay <= rule.dateRange[1]) ||
-                                  (rule.dateRange[0] > rule.dateRange[1] && (birthDay >= rule.dateRange[0] || birthDay <= rule.dateRange[1]));
-                
+                const monthMatch = (month >= rule.month[0] && month <= rule.month[1]) ||
+                    (rule.month[0] > rule.month[1] && (month >= rule.month[0] || month <= rule.month[1]));
+
+                const dateMatch = (day >= rule.dateRange[0] && day <= rule.dateRange[1]) ||
+                    (rule.dateRange[0] > rule.dateRange[1] && (day >= rule.dateRange[0] || day <= rule.dateRange[1]));
+
                 const timeMatch = birthTimeInMinutes >= rule.timeRange[0] && birthTimeInMinutes <= rule.timeRange[1];
 
                 if (monthMatch && dateMatch && timeMatch) {
@@ -313,14 +59,7 @@ const BlankCard: React.FC = () => {
         setLukkanaSign('กรุณากรอกข้อมูล...');
     };
 
-    // กำหนด min-height เพื่อให้ Card มีขนาดคงที่
     const cardContentMinHeight = "min-h-[250px] sm:min-h-[280px]";
-
-    const getDayOfWeek = (date: string): string => {
-        const days = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
-        const dayIndex = new Date(date).getDay();
-        return days[dayIndex];
-    };
 
     const renderCardContent = () => {
         if (!isSubmitted) {
@@ -360,21 +99,20 @@ const BlankCard: React.FC = () => {
             );
         } else {
             const isDataValid = birthDate && birthTime;
-            const dayOfWeek = isDataValid ? getDayOfWeek(birthDate) : '';
+            // ใช้ formattedDate เพื่อแสดงผลในรูปแบบ dd/mm/yyyy
+            const formattedDate = formatDate(birthDate); 
             return (
                 <div className="w-full h-full flex flex-col justify-center items-center text-center space-y-4">
                     {isDataValid ? (
                         <>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-secondary-gold drop-shadow-lg mb-2 py-4">
-                                ผลลัพธ์การตรวจสอบลัคนา
+                            <h2 className="text-xl sm:text-xl font-bold text-secondary-gold drop-shadow-lg mb-2">
+                                ผลลัพธ์การคำนวณลัคนาของคุณ
                             </h2>
-
-                            <p className="text-base text-gray-300">
-                                คุณเกิดวัน{dayOfWeek} ที่ {birthDate} เวลา {birthTime}
-                            </p>
-
                             <p className="text-2xl font-bold mb-4">
-                                คุณเกิดใน <span className="text-secondary-gold text-2xl">{lukkanaSign}</span>
+                                <span className="text-secondary-gold text-2xl">{lukkanaSign}</span>
+                            </p>
+                            <p className="text-base text-gray-300">
+                                คุณเกิดวันที่ {formattedDate} เวลา {birthTime}
                             </p>
                         </>
                     ) : (
@@ -392,24 +130,22 @@ const BlankCard: React.FC = () => {
     };
 
     return (
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-xl border border-secondary-gold/30 text-white flex flex-col items-center justify-center max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto my-8">
-            <div className="text-center w-full">
-                <h2 className="text-2xl sm:text-3xl font-bold text-secondary-gold mb-2 drop-shadow-lg">
-                    ตรวจสอบลัคนาออนไลน์
-                </h2>
-                <p className="text-6xl font-bold mb-4 drop-shadow-lg text-white">
-                    คำนวณลัคนา
-                </p>
-                <p className="text-lg text-gray-400">
-                    กรุณากรอกข้อมูลวันและเวลาเกิด
-                </p>
+        <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-xl border border-secondary-gold/30 text-white flex flex-col items-center justify-center max-w-sm mx-auto my-8">
 
-                <div className={`bg-white/20 p-6 sm:p-8 rounded-md mt-6 flex flex-col items-start w-full transition-all duration-500 ${cardContentMinHeight}`}>
-                    {renderCardContent()}
-                </div>
+            <h1 className="text-3xl font-bold mb-2 drop-shadow-lg text-amber-400">
+                เครื่องมือคำนวณลัคนาราศี
+            </h1>
+
+            <p className="text-center text-md mb-6 text-gray-200">
+                โปรดกรอกข้อมูลวัน/เดือน/ปีเกิด และเวลาเกิดของคุณ
+            </p>
+
+            <div className={`bg-white/20 p-6 sm:p-8 rounded-md mt-6 flex flex-col items-start w-full transition-all duration-500 ${cardContentMinHeight}`}>
+                {renderCardContent()}
             </div>
         </div>
+
     );
 };
 
-export default BlankCard;
+export default LukkanaChecker;

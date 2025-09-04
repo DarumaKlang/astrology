@@ -24,38 +24,7 @@ const BlankCard: React.FC = () => {
                 </p>
 
                 <div className="bg-white/20 p-4 rounded-md mt-4">
-                    <form onSubmit={handleCheckLukkana} className="space-y-4 w-full">
-                        <div>
-                            <label htmlFor="birthDate" className="block text-sm font-medium text-white/70">
-                                วันเกิด
-                            </label>
-                            <input
-                                type="date"
-                                id="birthDate"
-                                value={birthDate}
-                                onChange={(e) => setBirthDate(e.target.value)}
-                                className="mt-1 block w-full rounded-md border border-secondary-gold/30 shadow-sm bg-white/5 text-white focus:outline-none focus:ring-1 focus:ring-secondary-gold/80 focus:border-secondary-gold/80"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="birthTime" className="block text-sm font-medium text-white/70">
-                                เวลาเกิด
-                            </label>
-                            <input
-                                type="time"
-                                id="birthTime"
-                                value={birthTime}
-                                onChange={(e) => setBirthTime(e.target.value)}
-                                className="mt-1 block w-full rounded-md border border-secondary-gold/30 shadow-sm bg-white/5 text-white focus:outline-none focus:ring-1 focus:ring-secondary-gold/80 focus:border-secondary-gold/80"
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="w-full py-2 px-4 border border-secondary-gold rounded-md shadow-sm text-sm font-medium text-secondary-gold bg-transparent hover:bg-secondary-gold hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-gold"
-                        >
-                            เช็กลัคนา
-                        </button>
-                    </form>
+
                 </div>
 
                 <div className="bg-white/20 p-4 rounded-md mt-4 flex flex-col items-start">

@@ -1,10 +1,9 @@
 import Navbar from '@/components/Navbar';
 import YamaAthaganClock from '@/components/YamaAthaganClock';
 import CurrentDayCard from '@/components/CurrentDayCard';
-import DynamicHoroscope from '@/components/DynamicHoroscope';
-import PlanetaryPositions from '@/components/PlanetaryPositions';
 import AstroDataDisplay from '@/components/AstroDataDisplay';
 import CurrentZodiactCard from '@/components/CurrentZodiactCard';
+import LukkanaChecker from '@/components/LukkanaChecker';
 
 export default function Home() {
     return (
@@ -17,6 +16,7 @@ export default function Home() {
                 <YamaAthaganClock />
                 <CurrentDayCard />
                 <CurrentZodiactCard />
+                <LukkanaChecker />
 
                 <AstroDataDisplay />
             </div>

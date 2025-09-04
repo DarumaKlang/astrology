@@ -1,8 +1,8 @@
 declare module 'astronomia/planetposition' {
-  export class Planet {
-    constructor(data: any);
-    position(jd: number): { lon: number; lat?: number; range?: number };
-  }
+    export class Planet {
+        constructor(data: any);
+        position(jd: number): { lon: number; lat?: number; range?: number };
+    }
 }
 
 declare module 'astronomia/data/vsop87Bmercury';
@@ -14,9 +14,9 @@ declare module 'astronomia/data/vsop87Buranus';
 declare module 'astronomia/data/vsop87Bneptune';
 
 declare module 'astronomia/moonposition' {
-  export function position(jd: number): { lon: number; lat?: number };
+    export function position(jd: number): { lon: number; lat?: number };
 }
 
 declare module 'astronomia/solar' {
-  export function apparentLongitude(jd: number): number;
+    export function apparentLongitude(jd: number): number;
 }

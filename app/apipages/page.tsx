@@ -33,6 +33,16 @@ export default function ApisPage() {
                             <p className="text-gray-400">Card Component นาฬิกาบอกยาม</p>
                         </div>
                     </Link>
+
+                    {/* API Card 3 */}
+                    <Link href="/apipages/horoscope7num" className="block">
+                        <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-xl border border-secondary-gold/30 hover:bg-white/20 transition-colors">
+                            <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-400 drop-shadow">
+                                โหราศาสตร์ไทย เลข 7 ตัว
+                            </h3>
+                            <p className="text-gray-400">Card Component ตารางเลข 7 ตัว</p>
+                        </div>
+                    </Link>
                     
                 </div>
 

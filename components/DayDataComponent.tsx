@@ -18,7 +18,7 @@ interface DayDataComponentProps {
 
 export default function DayDataComponent({ data }: DayDataComponentProps) {
     return (
-        <ThemedSection title="คาแรกเตอร์คนเกิดแต่ละวัน">
+        <ThemedSection title="ลักษณะนิสัยของคนเกิดแต่ละวัน">
             {data.map((item, index) => (
                 <ThemedCard key={index}>
                     <h3 className="text-2xl font-semibold text-secondary-gold mb-2 drop-shadow-md">{item.th}</h3>

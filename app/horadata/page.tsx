@@ -16,6 +16,8 @@ import NinebaseDataComponent from "@/components/NinebaseDataComponent";
 import MahasattaTable from '@/components/MahasattaTable';
 import ThemedCardList from '@/components/ThemedCardList';
 import TaksaSundayComponent from '@/components/TaksaSundayComponent';
+import MahataksaStarDisplay from '@/components/MahataksaStarDisplay';
+import MahataksaPomeDisplay from '@/components/MahataksaPomeDisplay';
 
 export default function HomePage() {
     return (
@@ -28,6 +30,8 @@ export default function HomePage() {
                 </div>
                 {/* ส่วนข้อมูลทักษา */}
                 <h2 className="text-3xl font-bold mb-8 text-center">ข้อมูลวิชา มหาทักษา</h2>
+                <MahataksaStarDisplay />
+                <MahataksaPomeDisplay />
                 <ThemedCardList />
                 <TaksaSundayComponent />
                 

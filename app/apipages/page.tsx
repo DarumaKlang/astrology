@@ -42,8 +42,7 @@ export default function ApisPage() {
                             </h3>
                             <p className="text-gray-400">Card Component ตารางเลข 7 ตัว</p>
                         </div>
-                    </Link>
-                    
+                    </Link>                    
                 </div>
 
                 {/* Footer */}

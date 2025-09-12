@@ -54,7 +54,7 @@ export default function Navbar() {
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex items-center space-x-8 text-lg">
                     <li><Link href="/" className="text-white hover:text-secondary-gold transition-colors">หน้าแรก</Link></li>
-                    <li><Link href="/" className="text-white hover:text-secondary-gold transition-colors">บทความ</Link></li>
+                    <li><Link href="/horadata" className="text-white hover:text-secondary-gold transition-colors">ฐานข้อมูล</Link></li>
                     <li><Link href="/apipages" className="text-white hover:text-secondary-gold transition-colors">API</Link></li>
                     <li><Link href="/contact" className="text-white hover:text-secondary-gold transition-colors">ติดต่อ</Link></li>
                     {/* Contact Buttons */}
@@ -66,8 +66,8 @@ export default function Navbar() {
                 <div className="md:hidden bg-primary-purple bg-opacity-80 backdrop-blur-sm mt-4 rounded-lg p-4">
                     <ul className="flex flex-col space-y-4 text-center">
                         <li><Link href="/" className="block text-white hover:text-secondary-gold transition-colors">หน้าแรก</Link></li>
-                        <li><Link href="/astrology" className="block text-white hover:text-secondary-gold transition-colors">บทความ</Link></li>
-                        <li><Link href="/buddha" className="block text-white hover:text-secondary-gold transition-colors">พุทธศาสนา</Link></li>
+                        <li><Link href="/horadata" className="block text-white hover:text-secondary-gold transition-colors">ฐานข้อมูล</Link></li>
+                        <li><Link href="/apipages" className="block text-white hover:text-secondary-gold transition-colors">API</Link></li>
                         <li><Link href="/contact" className="block text-white hover:text-secondary-gold transition-colors">ติดต่อ</Link></li>
                         {/* Contact Buttons in Mobile Menu */}
                     </ul>

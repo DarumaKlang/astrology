@@ -53,10 +53,10 @@ export default function Navbar() {
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex items-center space-x-8 text-lg">
-                    <li><Link href="/" className="text-white hover:text-secondary-gold transition-colors">หน้าแรก</Link></li>
-                    <li><Link href="/horadata" className="text-white hover:text-secondary-gold transition-colors">ฐานข้อมูล</Link></li>
-                    <li><Link href="/apipages" className="text-white hover:text-secondary-gold transition-colors">API</Link></li>
-                    <li><Link href="/contact" className="text-white hover:text-secondary-gold transition-colors">ติดต่อ</Link></li>
+                    <li><Link href="/" className="text-white hover:text-secondary-gold transition-colors">Home</Link></li>
+                    <li><Link href="/horadata" className="text-white hover:text-secondary-gold transition-colors">Informations</Link></li>
+                    <li><Link href="/apipages" className="text-white hover:text-secondary-gold transition-colors">Components</Link></li>
+                    <li><Link href="/contact" className="text-white hover:text-secondary-gold transition-colors">Contact Us</Link></li>
                     {/* Contact Buttons */}
                 </ul>
             </nav>
@@ -65,10 +65,10 @@ export default function Navbar() {
             {isMenuOpen && (
                 <div className="md:hidden bg-primary-purple bg-opacity-80 backdrop-blur-sm mt-4 rounded-lg p-4">
                     <ul className="flex flex-col space-y-4 text-center">
-                        <li><Link href="/" className="block text-white hover:text-secondary-gold transition-colors">หน้าแรก</Link></li>
-                        <li><Link href="/horadata" className="block text-white hover:text-secondary-gold transition-colors">ฐานข้อมูล</Link></li>
-                        <li><Link href="/apipages" className="block text-white hover:text-secondary-gold transition-colors">API</Link></li>
-                        <li><Link href="/contact" className="block text-white hover:text-secondary-gold transition-colors">ติดต่อ</Link></li>
+                        <li><Link href="/" className="block text-white hover:text-secondary-gold transition-colors">Home</Link></li>
+                        <li><Link href="/horadata" className="block text-white hover:text-secondary-gold transition-colors">Informations</Link></li>
+                        <li><Link href="/apipages" className="block text-white hover:text-secondary-gold transition-colors">Components</Link></li>
+                        <li><Link href="/contact" className="block text-white hover:text-secondary-gold transition-colors">Contact Us</Link></li>
                         {/* Contact Buttons in Mobile Menu */}
                     </ul>
                 </div>

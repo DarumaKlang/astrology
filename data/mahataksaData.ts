@@ -1,6 +1,4 @@
 // data/mahataksaData.ts
-
-// แยก array ตัวเลขที่ซ้ำกันออกมาเป็นตัวแปรใหม่
 const defaultNumbers = [1, 2, 3, 4, 7, 5, 8, 6];
 
 export const mahataksaData = [
